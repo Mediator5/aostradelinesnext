@@ -6,8 +6,28 @@ import StickyCheckoutBar from '@/components/StickyCheckoutBar';
 import FloatingActions from '@/components/FloatingActions';
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://aostradelinesnext.vercel.app'),
   title: 'AOS Tradelines',
-  description: 'Premium tradeline services',
+  description: 'Premium tradeline services — high-limit, aged tradelines to elevate your credit profile.',
+  openGraph: {
+    title: 'AOS Tradelines',
+    description: 'Premium tradeline services — high-limit, aged tradelines to elevate your credit profile.',
+    images: [
+      {
+        url: '/LOGO3.png',
+        width: 1200,
+        height: 630,
+        alt: 'AOS Tradelines Logo',
+      },
+    ],
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'AOS Tradelines',
+    description: 'Premium tradeline services — high-limit, aged tradelines to elevate your credit profile.',
+    images: ['/LOGO3.png'],
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
