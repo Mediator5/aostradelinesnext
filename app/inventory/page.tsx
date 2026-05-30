@@ -84,8 +84,10 @@ export default function InventoryPage() {
     .sort((a, b) => {
       if (!sortConfig) return 0;
       const { key, direction } = sortConfig;
-      if (a[key] < b[key]) return direction === "asc" ? -1 : 1;
-      if (a[key] > b[key]) return direction === "asc" ? 1 : -1;
+      const aVal = a[key] ?? "";
+      const bVal = b[key] ?? "";
+      if (aVal < bVal) return direction === "asc" ? -1 : 1;
+      if (aVal > bVal) return direction === "asc" ? 1 : -1;
       return 0;
     });
 
