@@ -62,7 +62,7 @@ export default function BecomePartnerPage() {
               data-layout-iframe-id="inline-UzKIUq9T0ygCHrTt00G0"
               data-form-id="UzKIUq9T0ygCHrTt00G0"
               title="AOS AFFILIATE FORM"
-              scrolling="no"
+              // scrolling="no"
             />
           </div>
 
