@@ -36,7 +36,7 @@ export default function ConsultationPage() {
             ))}
           </div>
 
-          <div className="premium-card !bg-[#FFFFFF] p-4 sm:p-8 md:p-12 rounded-[2.5rem] md:rounded-[3rem] border border-[#C9A84C]/20 text-center mb-10 md:mb-16 overflow-hidden">
+          <div className="premium-card !bg-[#FFFFFF] p-4 sm:p-8 md:p-12 rounded-[2.5rem] md:rounded-[3rem] border border-[#C9A84C]/20 text-center mb-10 md:mb-16 h-[2000px] ">
             <iframe
               src="https://api.leadconnectorhq.com/widget/form/Hv5qB0smDoTY8TpSTDIl"
               style={{ width: "100%", height: "100%", minHeight: "800px", border: "none", borderRadius: "8px" }}
@@ -52,7 +52,7 @@ export default function ConsultationPage() {
               data-layout-iframe-id="inline-Hv5qB0smDoTY8TpSTDIl"
               data-form-id="Hv5qB0smDoTY8TpSTDIl"
               title="TRADELINE CONSULTATION FORM"
-              // scrolling="no"
+              scrolling="no"
             />
           </div>
 
