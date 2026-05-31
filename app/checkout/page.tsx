@@ -195,7 +195,7 @@ export default function CheckoutPage() {
               </div>
 
               {/* GHL Form iframe */}
-              <div className="px-0 sm:px-0 pb-0 overflow-hidden">
+              <div className="px-0 sm:px-0 pb-0  h-[3000px]">
                 <iframe
                   src={iframeSrc}
                   className="-mt-[220px]"
