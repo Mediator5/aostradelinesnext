@@ -51,7 +51,7 @@ export default function StickyCheckoutBar() {
           </div>
 
           {/* Desktop Bar */}
-          <div className="hidden md:block p-8">
+          <div className="hidden md:block p-8 bg-white">
             <div className="max-w-4xl mx-auto bg-gradient-to-r from-accent via-accent/90 to-accent-hover rounded-full p-3 flex items-center justify-between shadow-xl border border-white/20 select-none">
               <div className="flex items-center gap-8 pl-10">
                 <div className="relative">

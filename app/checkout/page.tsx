@@ -196,7 +196,7 @@ export default function CheckoutPage() {
               </div>
 
               {/* GHL Form iframe */}
-              <div className="px-0 sm:px-0 pb-0">
+              <div className="px-0 sm:px-0 pb-0 hidden">
                 <iframe
                   src={iframeSrc}
                   style={{ width: "100%", minHeight: "600px", border: "none", display: "block" }}
