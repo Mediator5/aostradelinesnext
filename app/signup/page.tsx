@@ -1,5 +1,6 @@
 "use client";
 
+import Script from "next/script";
 import { motion } from "framer-motion";
 import { CheckCircle2, Activity, Users, TrendingUp, Lock, AlertCircle } from "lucide-react";
 import SectionBadge from "@/components/SectionBadge";
@@ -40,10 +41,10 @@ export default function SignUpPage() {
             ))}
           </div>
 
-          <div className="premium-card !bg-[#FFFFFF] p-4 sm:p-8 md:p-12 rounded-[2.5rem] md:rounded-[3rem] border border-[#C9A84C]/20 text-center mb-8 md:mb-16 h-[3000px]">
+          <div className="premium-card !bg-[#FFFFFF] p-4 sm:p-8 md:p-12 rounded-[2.5rem] md:rounded-[3rem] border border-[#C9A84C]/20 text-center mb-8 md:mb-16">
             <iframe
               src="https://api.leadconnectorhq.com/widget/form/c11Vcv7Z8m6IUFwvxAwL"
-              style={{ width: "100%", height: "100%", minHeight: "850px", border: "none", borderRadius: "8px" }}
+              style={{ width: "100%", height: "100%", minHeight: "600px", border: "none", borderRadius: "8px" }}
               id="inline-c11Vcv7Z8m6IUFwvxAwL"
               data-layout="{'id':'INLINE'}"
               data-trigger-type="alwaysShow"
@@ -58,6 +59,7 @@ export default function SignUpPage() {
               title="TRADELINE SIGN UP FORM"
               scrolling="no"
             />
+            <Script src="https://link.msgsndr.com/js/form_embed.js" strategy="lazyOnload" />
           </div>
 
           <div className="max-w-2xl mx-auto space-y-3">

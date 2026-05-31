@@ -1,11 +1,14 @@
 "use client";
 
+import { useState, useEffect } from "react";
+import Script from "next/script";
 import { motion } from "framer-motion";
 import { Phone, TrendingUp, Zap, Lock, ShieldCheck } from "lucide-react";
 import SectionBadge from "@/components/SectionBadge";
 import Footer from "@/components/Footer";
 
 export default function ConsultationPage() {
+
   return (
     <>
       <div className="pt-32 pb-24 md:pb-44 bg-[#FAF8F3] min-h-screen relative overflow-hidden">
@@ -36,10 +39,10 @@ export default function ConsultationPage() {
             ))}
           </div>
 
-          <div className="premium-card !bg-[#FFFFFF] p-4 sm:p-8 md:p-12 rounded-[2.5rem] md:rounded-[3rem] border border-[#C9A84C]/20 text-center mb-10 md:mb-16 h-[3000px] ">
+          <div className="premium-card !bg-[#FFFFFF] p-4 sm:p-8 md:p-12 rounded-[2.5rem] md:rounded-[3rem] border border-[#C9A84C]/20 text-center mb-10 md:mb-16">
             <iframe
               src="https://api.leadconnectorhq.com/widget/form/Hv5qB0smDoTY8TpSTDIl"
-              style={{ width: "100%", height: "100%", minHeight: "800px", border: "none", borderRadius: "8px" }}
+              style={{ width: "100%", height: "100%", minHeight: "600px", border: "none", borderRadius: "8px" }}
               id="inline-Hv5qB0smDoTY8TpSTDIl"
               data-layout="{'id':'INLINE'}"
               data-trigger-type="alwaysShow"
@@ -54,6 +57,7 @@ export default function ConsultationPage() {
               title="TRADELINE CONSULTATION FORM"
               scrolling="no"
             />
+            <Script src="https://link.msgsndr.com/js/form_embed.js" strategy="lazyOnload" />
           </div>
 
           <div className="flex items-center justify-center gap-2.5 pt-2 text-[#4A4A4A]/50 font-black uppercase text-[10px] tracking-widest">

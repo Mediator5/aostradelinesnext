@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Script from "next/script";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -195,11 +196,10 @@ export default function CheckoutPage() {
               </div>
 
               {/* GHL Form iframe */}
-              <div className="px-0 sm:px-0 pb-0  h-[3000px]">
+              <div className="px-0 sm:px-0 pb-0">
                 <iframe
                   src={iframeSrc}
-                  className="-mt-[220px]"
-                  style={{ width: "100%", minHeight: "1050px", border: "none", display: "block" }}
+                  style={{ width: "100%", minHeight: "600px", border: "none", display: "block" }}
                   id="inline-c11Vcv7Z8m6IUFwvxAwL"
                   data-layout="{'id':'INLINE'}"
                   data-trigger-type="alwaysShow"
@@ -212,8 +212,9 @@ export default function CheckoutPage() {
                   data-layout-iframe-id="inline-c11Vcv7Z8m6IUFwvxAwL"
                   data-form-id="c11Vcv7Z8m6IUFwvxAwL"
                   title="TRADELINE SIGN UP FORM"
-                  // scrolling="no"
+                  scrolling="no"
                 />
+                <Script src="https://link.msgsndr.com/js/form_embed.js" strategy="lazyOnload" />
               </div>
             </motion.div>
 

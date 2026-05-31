@@ -1,5 +1,6 @@
 "use client";
 
+import Script from "next/script";
 import { motion } from "framer-motion";
 import { Star } from "lucide-react";
 import SectionBadge from "@/components/SectionBadge";
@@ -45,10 +46,10 @@ export default function BecomePartnerPage() {
             ))}
           </div>
 
-          <div className="premium-card !bg-[#FFFFFF] p-4 sm:p-8 md:p-12 rounded-[2.5rem] md:rounded-[3rem] border border-[#C9A84C]/20 text-center mb-10 md:mb-16 h-[3000px]">
+          <div className="premium-card !bg-[#FFFFFF] p-4 sm:p-8 md:p-12 rounded-[2.5rem] md:rounded-[3rem] border border-[#C9A84C]/20 text-center mb-10 md:mb-16">
             <iframe
               src="https://api.leadconnectorhq.com/widget/form/UzKIUq9T0ygCHrTt00G0"
-              style={{ width: "100%", height: "100%", minHeight: "850px", border: "none", borderRadius: "8px" }}
+              style={{ width: "100%", height: "100%", minHeight: "600px", border: "none", borderRadius: "8px" }}
               id="inline-UzKIUq9T0ygCHrTt00G0-bp"
               data-layout="{'id':'INLINE'}"
               data-trigger-type="alwaysShow"
@@ -64,6 +65,7 @@ export default function BecomePartnerPage() {
               title="AOS AFFILIATE FORM"
               scrolling="no"
             />
+            <Script src="https://link.msgsndr.com/js/form_embed.js" strategy="lazyOnload" />
           </div>
 
           <div className="text-center px-4">
