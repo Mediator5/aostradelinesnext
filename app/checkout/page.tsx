@@ -13,9 +13,10 @@ import Footer from "@/components/Footer";
 import { useCart } from "@/context/CartContext";
 
 const PAYMENT_OPTIONS = [
-  { label: "Zelle", value: "+1 (XXX) XXX-XXXX", icon: "Z" },
-  { label: "Apple Pay", value: "XXX-XXX-XXXX", icon: "A" },
-  { label: "Cash App", value: "$YourCashApp", icon: "$" },
+  { label: "Zelle", value: "(954) 552-0026", note: "AOS Impact Solutions", icon: "Z" },
+  { label: "Apple Pay", value: "(954) 552-0026", note: null, icon: "A" },
+  { label: "Cash App", value: "$AOS700Boost", note: null, icon: "$" },
+  { label: "Venmo", value: "@asampson5", note: null, icon: "V" },
 ];
 
 export default function CheckoutPage() {
@@ -269,7 +270,7 @@ export default function CheckoutPage() {
                 <h2 className="text-xl font-display font-black text-[#1A1A1A] uppercase">Payment Options</h2>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {PAYMENT_OPTIONS.map((opt) => (
                   <div key={opt.label} className="group bg-[#FAF8F3] border border-[#C9A84C]/20 hover:border-[#C9A84C]/50 rounded-2xl p-5 transition-all">
                     <div className="flex items-center gap-3 mb-3">
@@ -278,6 +279,9 @@ export default function CheckoutPage() {
                       </div>
                       <span className="font-black text-[#1A1A1A] uppercase text-[11px] tracking-widest">{opt.label}</span>
                     </div>
+                    {opt.note && (
+                      <p className="text-[#C9A84C] text-[10px] font-black uppercase tracking-wider mb-2">{opt.note}</p>
+                    )}
                     <div className="flex items-center justify-between gap-2">
                       <span className="font-bold text-[#1A1A1A] text-sm truncate">{opt.value}</span>
                       <button
@@ -286,7 +290,7 @@ export default function CheckoutPage() {
                         title="Copy to clipboard"
                       >
                         {copied === opt.label
-                          ? <Check size={14} strokeWidth={3} className="text-[#C9A84C] group-hover:text-[#0A0A0A]" />
+                          ? <Check size={14} strokeWidth={3} />
                           : <Copy size={14} />
                         }
                       </button>
@@ -451,6 +455,7 @@ export default function CheckoutPage() {
                     <option value="zelle">Zelle</option>
                     <option value="apple-pay">Apple Pay</option>
                     <option value="cash-app">Cash App</option>
+                    <option value="venmo">Venmo</option>
                   </select>
                 </div>
 
