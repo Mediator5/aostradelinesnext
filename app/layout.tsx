@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     description: 'Premium tradeline services — high-limit, aged tradelines to elevate your credit profile.',
     images: [
       {
-        url: '/LOGO3.png',
+        url: '/aoslogo2.jpeg',
         width: 1200,
         height: 630,
         alt: 'AOS Tradelines Logo',
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'AOS Tradelines',
     description: 'Premium tradeline services — high-limit, aged tradelines to elevate your credit profile.',
-    images: ['/LOGO3.png'],
+    images: ['/aoslogo2.jpeg'],
   },
 };
 
