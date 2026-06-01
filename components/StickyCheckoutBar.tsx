@@ -24,7 +24,7 @@ export default function StickyCheckoutBar() {
           className="fixed bottom-0 left-0 right-0 z-[60]"
         >
           {/* Mobile Bar */}
-          <div className="md:hidden bg-gradient-to-r from-accent to-accent-hover px-4 pt-4 pb-6 select-none shadow-xl">
+          <div className="md:hidden bg-gradient-to-r from-accent to-accent-hover px-4 pt-4 pb-6 select-none shadow-xl bg-white">
             <div className="flex items-center justify-between gap-3">
               <div className="flex items-center gap-3">
                 <div className="relative shrink-0">
