@@ -2,7 +2,6 @@
 
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import {
   Lock, ShoppingCart, CreditCard, Trash2, ShieldCheck, ArrowRight,
@@ -11,6 +10,7 @@ import {
 import SectionBadge from "@/components/SectionBadge";
 import Footer from "@/components/Footer";
 import { useCart } from "@/context/CartContext";
+import Link from "next/link";
 
 const PAYMENT_OPTIONS = [
   { label: "Zelle", value: "(954) 552-0026", note: "AOS Impact Solutions", icon: "Z" },
@@ -27,13 +27,11 @@ export default function CheckoutPage() {
 
   const [copied, setCopied] = useState<string | null>(null);
   const [showBureaus, setShowBureaus] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [proofFile, setProofFile] = useState<File | null>(null);
   const [form, setForm] = useState({
-    fullName: "", email: "", phone: "", dob: "", ssn: "",
-    address: "", city: "", state: "", zip: "",
-    navyFederal: "", referredBy: "", paymentMethod: "", agreed: false,
+    fullName: "", email: "", phone: "",
+    referredBy: "", paymentMethod: "", agreed: false,
   });
 
   const orderDetails = cart.map(item => {
@@ -54,43 +52,30 @@ export default function CheckoutPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitting(true);
-    await new Promise(r => setTimeout(r, 1500));
-    setSubmitting(false);
-    setSubmitted(true);
+    try {
+      let proofFileBase64 = null;
+      let proofFileName = null;
+      if (proofFile) {
+        proofFileName = proofFile.name;
+        const buffer = await proofFile.arrayBuffer();
+        proofFileBase64 = btoa(String.fromCharCode(...new Uint8Array(buffer)));
+      }
+      await fetch("/api/checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...form, orderDetails, proofFileBase64, proofFileName }),
+      });
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setSubmitting(false);
+      window.location.href = "https://aostradelines.com/signup";
+    }
   };
 
   useEffect(() => {
     if (!cart.length) router.push("/inventory");
   }, [cart, router]);
-
-  if (submitted) {
-    return (
-      <>
-        <div className="pt-32 pb-44 bg-[#FAF8F3] min-h-screen flex items-center justify-center">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            className="max-w-lg w-full mx-4 text-center premium-card !bg-[#FFFFFF] p-12 rounded-[3rem] border border-[#C9A84C]/20"
-          >
-            <div className="w-20 h-20 bg-[#C9A84C]/10 rounded-full flex items-center justify-center mx-auto mb-6">
-              <Check size={36} className="text-[#C9A84C]" strokeWidth={3} />
-            </div>
-            <h2 className="text-3xl font-display font-black text-[#1A1A1A] uppercase mb-3">Order Submitted</h2>
-            <p className="text-[#4A4A4A] opacity-60 font-medium mb-8 leading-relaxed">
-              We've received your order and payment proof. Our team will verify and process your tradeline within 2–14 days.
-            </p>
-            <Link
-              href="/"
-              className="inline-block bg-[#C9A84C] text-[#0A0A0A] px-10 py-4 rounded-full font-black text-[13px] uppercase shimmer"
-            >
-              Back to Home
-            </Link>
-          </motion.div>
-        </div>
-        <Footer />
-      </>
-    );
-  }
 
   return (
     <>
@@ -348,96 +333,14 @@ export default function CheckoutPage() {
                   </div>
                 </div>
 
-                {/* Phone + DOB */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div className="space-y-1.5">
-                    <label className="text-[10px] font-black text-[#4A4A4A] uppercase tracking-widest">Phone Number *</label>
-                    <input
-                      required type="tel"
-                      value={form.phone}
-                      onChange={e => setForm({ ...form, phone: e.target.value })}
-                      placeholder="+1 (555) 000-0000"
-                      className="w-full bg-[#FAF8F3] border border-[#C9A84C]/20 focus:border-[#C9A84C] rounded-2xl px-5 py-4 text-sm font-medium text-[#1A1A1A] outline-none transition-all placeholder:text-[#4A4A4A]/30"
-                    />
-                  </div>
-                  <div className="space-y-1.5">
-                    <label className="text-[10px] font-black text-[#4A4A4A] uppercase tracking-widest">Date of Birth *</label>
-                    <input
-                      required
-                      value={form.dob}
-                      onChange={e => setForm({ ...form, dob: e.target.value })}
-                      placeholder="MM-DD-YYYY"
-                      className="w-full bg-[#FAF8F3] border border-[#C9A84C]/20 focus:border-[#C9A84C] rounded-2xl px-5 py-4 text-sm font-medium text-[#1A1A1A] outline-none transition-all placeholder:text-[#4A4A4A]/30"
-                    />
-                  </div>
-                </div>
-
-                {/* SSN */}
+                {/* Phone */}
                 <div className="space-y-1.5">
-                  <label className="text-[10px] font-black text-[#4A4A4A] uppercase tracking-widest">SSN *</label>
+                  <label className="text-[10px] font-black text-[#4A4A4A] uppercase tracking-widest">Phone Number *</label>
                   <input
-                    required
-                    value={form.ssn}
-                    onChange={e => setForm({ ...form, ssn: e.target.value })}
-                    placeholder="123-45-6789"
-                    className="w-full bg-[#FAF8F3] border border-[#C9A84C]/20 focus:border-[#C9A84C] rounded-2xl px-5 py-4 text-sm font-medium text-[#1A1A1A] outline-none transition-all placeholder:text-[#4A4A4A]/30"
-                  />
-                  <p className="text-[10px] text-[#4A4A4A] opacity-40 ml-1">Format with dashes — e.g. 123-45-6789</p>
-                </div>
-
-                {/* Address */}
-                <div className="space-y-1.5">
-                  <label className="text-[10px] font-black text-[#4A4A4A] uppercase tracking-widest">Street Address *</label>
-                  <input
-                    required
-                    value={form.address}
-                    onChange={e => setForm({ ...form, address: e.target.value })}
-                    placeholder="Street address"
-                    className="w-full bg-[#FAF8F3] border border-[#C9A84C]/20 focus:border-[#C9A84C] rounded-2xl px-5 py-4 text-sm font-medium text-[#1A1A1A] outline-none transition-all placeholder:text-[#4A4A4A]/30"
-                  />
-                </div>
-
-                {/* City / State / Zip */}
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-                  <div className="space-y-1.5 col-span-2 sm:col-span-1">
-                    <label className="text-[10px] font-black text-[#4A4A4A] uppercase tracking-widest">City *</label>
-                    <input
-                      required
-                      value={form.city}
-                      onChange={e => setForm({ ...form, city: e.target.value })}
-                      placeholder="City"
-                      className="w-full bg-[#FAF8F3] border border-[#C9A84C]/20 focus:border-[#C9A84C] rounded-2xl px-5 py-4 text-sm font-medium text-[#1A1A1A] outline-none transition-all placeholder:text-[#4A4A4A]/30"
-                    />
-                  </div>
-                  <div className="space-y-1.5">
-                    <label className="text-[10px] font-black text-[#4A4A4A] uppercase tracking-widest">State *</label>
-                    <input
-                      required
-                      value={form.state}
-                      onChange={e => setForm({ ...form, state: e.target.value })}
-                      placeholder="State"
-                      className="w-full bg-[#FAF8F3] border border-[#C9A84C]/20 focus:border-[#C9A84C] rounded-2xl px-5 py-4 text-sm font-medium text-[#1A1A1A] outline-none transition-all placeholder:text-[#4A4A4A]/30"
-                    />
-                  </div>
-                  <div className="space-y-1.5">
-                    <label className="text-[10px] font-black text-[#4A4A4A] uppercase tracking-widest">Postal Code *</label>
-                    <input
-                      required
-                      value={form.zip}
-                      onChange={e => setForm({ ...form, zip: e.target.value })}
-                      placeholder="ZIP"
-                      className="w-full bg-[#FAF8F3] border border-[#C9A84C]/20 focus:border-[#C9A84C] rounded-2xl px-5 py-4 text-sm font-medium text-[#1A1A1A] outline-none transition-all placeholder:text-[#4A4A4A]/30"
-                    />
-                  </div>
-                </div>
-
-                {/* Navy Federal */}
-                <div className="space-y-1.5">
-                  <label className="text-[10px] font-black text-[#4A4A4A] uppercase tracking-widest">Navy Federal Access # <span className="opacity-40 normal-case font-medium">(optional)</span></label>
-                  <input
-                    value={form.navyFederal}
-                    onChange={e => setForm({ ...form, navyFederal: e.target.value })}
-                    placeholder="Please provide if you purchased a Navy Federal tradeline"
+                    required type="tel"
+                    value={form.phone}
+                    onChange={e => setForm({ ...form, phone: e.target.value })}
+                    placeholder="+1 (555) 000-0000"
                     className="w-full bg-[#FAF8F3] border border-[#C9A84C]/20 focus:border-[#C9A84C] rounded-2xl px-5 py-4 text-sm font-medium text-[#1A1A1A] outline-none transition-all placeholder:text-[#4A4A4A]/30"
                   />
                 </div>

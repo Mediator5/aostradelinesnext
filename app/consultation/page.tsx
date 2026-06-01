@@ -24,7 +24,7 @@ export default function ConsultationPage() {
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 md:gap-8 mb-10 md:mb-20">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 md:gap-8 mb-10 md:mb-20 hidden">
             {[
               { title: "Personalized strategy", icon: <TrendingUp size={24} /> },
               { title: "Fast process", icon: <Zap size={24} /> },
