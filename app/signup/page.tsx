@@ -17,12 +17,15 @@ export default function SignUpPage() {
             <h1 className="text-3xl md:text-6xl font-display font-black text-[#1A1A1A] mb-4 md:mb-6 uppercase leading-tight px-2">
               Secure Your <span className="luxury-text-gradient">Tradeline Today</span>
             </h1>
-            <p className="text-sm md:text-lg text-[#4A4A4A] opacity-70 max-w-2xl mx-auto font-medium leading-relaxed px-4">
+            <p className="text-sm md:text-lg text-[#4A4A4A] opacity-70 max-w-2xl mx-auto font-medium leading-relaxed px-4 hidden">
               Start improving your credit profile with our trusted tradeline services.
+            </p>
+            <p className="text-sm md:text-lg text-[#4A4A4A] opacity-70 max-w-2xl mx-auto font-medium leading-relaxed px-4">
+             Step 1: Submit your information, Step 2: We match you with a tradeline, Step 3: Tradeline is added to your credit profile
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 md:gap-8 mb-10 md:mb-20 relative">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 md:gap-8 mb-10 md:mb-20 relative hidden">
             <div className="hidden md:block absolute top-1/2 left-[15%] right-[15%] h-px bg-[#C9A84C]/20 -z-0" />
             {[
               { step: "Step 1", title: "Submit your information", icon: <Activity size={20} /> },
