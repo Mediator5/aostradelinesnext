@@ -28,6 +28,7 @@ export default function CheckoutPage() {
   const [copied, setCopied] = useState<string | null>(null);
   const [showBureaus, setShowBureaus] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
   const [proofFile, setProofFile] = useState<File | null>(null);
   const [form, setForm] = useState({
     fullName: "", email: "", phone: "",
@@ -69,13 +70,45 @@ export default function CheckoutPage() {
       console.error(err);
     } finally {
       setSubmitting(false);
-      window.location.href = "https://aostradelines.com/signup";
+      setSubmitted(true);
+      setTimeout(() => {
+        window.location.href = "https://funnel.aosimpactsolutions.com/widget/form/c11Vcv7Z8m6IUFwvxAwL";
+      }, 4000);
     }
   };
 
   useEffect(() => {
-    if (!cart.length) router.push("/inventory");
-  }, [cart, router]);
+    if (!cart.length && !submitted) router.push("/inventory");
+  }, [cart, router, submitted]);
+
+  if (submitted) {
+    return (
+      <>
+        <div className="pt-32 pb-44 bg-[#FAF8F3] min-h-screen flex items-center justify-center">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="max-w-lg w-full mx-4 text-center premium-card !bg-[#FFFFFF] p-12 rounded-[3rem] border border-[#C9A84C]/20"
+          >
+            <div className="w-20 h-20 bg-[#C9A84C]/10 rounded-full flex items-center justify-center mx-auto mb-6">
+              <Check size={36} className="text-[#C9A84C]" strokeWidth={3} />
+            </div>
+            <h2 className="text-2xl md:text-3xl font-display font-black text-[#1A1A1A] uppercase mb-4 leading-tight">
+              Thank you for choosing<br />AOS Tradelines 😊
+            </h2>
+            <p className="text-[#4A4A4A] opacity-70 font-medium leading-relaxed mb-8">
+              Your order has been received and is currently being processed. Please allow <span className="font-bold text-[#1A1A1A] opacity-100">24–72 hours</span> for confirmation.
+            </p>
+            <div className="flex items-center justify-center gap-2 text-[#C9A84C] text-[11px] font-black uppercase tracking-widest">
+              <div className="w-4 h-4 border-2 border-[#C9A84C] border-t-transparent rounded-full animate-spin" />
+              Redirecting you now...
+            </div>
+          </motion.div>
+        </div>
+        <Footer />
+      </>
+    );
+  }
 
   return (
     <>
@@ -185,14 +218,14 @@ export default function CheckoutPage() {
 
               {/* Refund Policy */}
               <div className="premium-card !bg-[#FFFFFF] p-5 rounded-2xl border border-[#C9A84C]/20">
-                <p className="text-[#4A4A4A] text-sm leading-relaxed">
+                <p className="text-black text-sm leading-relaxed">
                   <span className="font-black text-[#1A1A1A]">Refund Policy:</span> No refunds — only exchanges.
                 </p>
-                <p className="text-[#4A4A4A] text-sm leading-relaxed mt-2 opacity-70">
+                <p className="text-black text-sm leading-relaxed mt-2 ">
                   Tradelines will post for 60 days. All sales are final. Tradelines usually take anywhere from{" "}
                   <span className="font-bold text-[#1A1A1A]">2–14 days</span> after the purchase date to report.
                 </p>
-                <p className="text-[#4A4A4A] text-sm mt-2 opacity-50 italic">Please remove all fraud alerts and holds on your credit report before submitting.</p>
+                <p className="text-black text-sm mt-2  italic">Please remove all fraud alerts and holds on your credit report before submitting.</p>
               </div>
 
               {/* Purchase Date */}

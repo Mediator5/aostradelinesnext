@@ -26,7 +26,7 @@ export default function FloatingActions() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 20 }}
-          className="md:hidden fixed bottom-24 right-6 z-[9000] flex flex-col gap-3"
+          className="md:hidden fixed bottom-24 right-6 z-[9000] flex flex-col gap-3 hidden"
         >
           <a
             href="tel:205-431-5374"

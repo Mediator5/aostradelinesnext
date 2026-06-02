@@ -41,14 +41,14 @@ export default function Footer() {
             </ul>
           </div>
 
-          <div className="bg-[#1E1E1E] p-10 rounded-[2.5rem] border border-[#C9A84C]/30">
+          <div className="bg-[#1E1E1E] p-10 rounded-[2.5rem] border border-[#C9A84C]/30 overflow-hidden">
             <h4 className="text-[#FFFFFF] font-display font-bold text-xl mb-6 uppercase">Support</h4>
             <ul className="space-y-6 text-[#A8A8A8] opacity-60 text-[15px] font-bold">
               <li className="flex items-center gap-4">
                 <ShieldCheck size={18} className="text-[#C9A84C]" />
                 <span className="uppercase text-[11px] font-black italic">Verified Partner</span>
               </li>
-              <li className="text-[#FFFFFF] font-black text-lg">1-800-AOS-LINE</li>
+              <li className="text-[#FFFFFF] font-black text-[12px]">Send email to tradelines@aostradelines.com</li>
               <li className="pt-4">
                 <div className="flex text-[#C9A84C] gap-1">
                   {[...Array(5)].map((_, i) => <Star key={i} size={14} fill="currentColor" />)}

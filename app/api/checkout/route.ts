@@ -22,7 +22,7 @@ export async function POST(request: Request) {
     await transporter.sendMail({
       from: `"AOS Tradelines" <${process.env.GMAIL_USER}>`,
       to: email,
-      subject: "Order Received – AOS Tradelines",
+      subject: `Payment Confirmation – ${fullName}`,
       html: `
         <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; padding: 40px 20px; background: #FAF8F3;">
           <div style="background: #1A1A1A; padding: 32px; border-radius: 16px; text-align: center; margin-bottom: 32px;">
@@ -49,7 +49,7 @@ export async function POST(request: Request) {
     await transporter.sendMail({
       from: `"AOS Tradelines" <${process.env.GMAIL_USER}>`,
       to: "tradelines@aosimpactsolutions.com",
-      subject: `New Order: ${fullName}`,
+      subject: `New Tradelines Order – ${fullName}`,
       attachments,
       html: `
         <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; padding: 40px 20px;">

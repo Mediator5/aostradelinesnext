@@ -167,7 +167,7 @@ export default function Navbar() {
             )}
             <a
               href="tel:+18001234567"
-              className="bg-[#C9A84C] text-[#0A0A0A] px-8 py-3 rounded-full text-[13px] font-black uppercase hover:bg-[#C9A84C]-hover hover:scale-105 active:scale-95 transition-all shadow-lg flex items-center gap-2 group shimmer"
+              className="bg-[#C9A84C] text-[#0A0A0A] px-8 py-3 rounded-full text-[13px] font-black uppercase hover:bg-[#C9A84C]-hover hover:scale-105 active:scale-95 transition-all shadow-lg flex items-center gap-2 group shimmer hidden"
             >
               <Phone size={14} className="group-hover:rotate-12 transition-transform" />
               (800) 123-4567
@@ -270,7 +270,7 @@ export default function Navbar() {
               <div className="mt-auto p-6">
                 <a
                   href="tel:+18001234567"
-                  className="w-full bg-[#C9A84C] text-[#0A0A0A] h-14 rounded-xl font-bold flex items-center justify-center gap-2 shadow-lg active:scale-95 transition-all"
+                  className="w-full bg-[#C9A84C] text-[#0A0A0A] h-14 rounded-xl font-bold flex items-center justify-center gap-2 shadow-lg active:scale-95 transition-all hidden"
                 >
                   <Phone size={18} />
                   (800) 123-4567

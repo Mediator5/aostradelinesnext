@@ -24,7 +24,7 @@ export default function StickyCheckoutBar() {
           className="fixed bottom-0 left-0 right-0 z-[60]"
         >
           {/* Mobile Bar */}
-          <div className="md:hidden bg-gradient-to-r from-accent to-accent-hover px-4 pt-4 pb-6 select-none shadow-xl bg-white">
+          <div className="md:hidden bg-gradient-to-r from-accent to-accent-hover px-4 pt-4 pb-6 select-none shadow-xl bg-black">
             <div className="flex items-center justify-between gap-3">
               <div className="flex items-center gap-3">
                 <div className="relative shrink-0">
@@ -36,8 +36,8 @@ export default function StickyCheckoutBar() {
                   </span>
                 </div>
                 <div>
-                  <div className="text-[8px] font-black text-[#0A0A0A]/50 uppercase leading-none mb-0.5">Total</div>
-                  <div className="text-2xl font-display font-black text-[#0A0A0A] italic leading-none">${totalPrice.toLocaleString()}</div>
+                  <div className="text-[8px] font-black text-white uppercase leading-none mb-0.5">Total</div>
+                  <div className="text-2xl font-display font-black text-[#C9A84C] italic leading-none">${totalPrice.toLocaleString()}</div>
                 </div>
               </div>
               <Link
@@ -51,7 +51,7 @@ export default function StickyCheckoutBar() {
           </div>
 
           {/* Desktop Bar */}
-          <div className="hidden md:block p-8 bg-white">
+          <div className="hidden md:block p-8 bg-black">
             <div className="max-w-4xl mx-auto bg-gradient-to-r from-accent via-accent/90 to-accent-hover rounded-full p-3 flex items-center justify-between shadow-xl border border-white/20 select-none">
               <div className="flex items-center gap-8 pl-10">
                 <div className="relative">
@@ -63,8 +63,8 @@ export default function StickyCheckoutBar() {
                   </span>
                 </div>
                 <div>
-                  <div className="text-[10px] font-black text-[#0A0A0A]/40 uppercase mb-0.5">Allocation Portfolio</div>
-                  <div className="text-4xl font-display font-black text-[#0A0A0A] italic leading-none drop-shadow-sm">${totalPrice.toLocaleString()}</div>
+                  <div className="text-[10px] font-black text-white uppercase mb-0.5">Allocation Portfolio</div>
+                  <div className="text-4xl font-display font-black text-[#C9A84C] italic leading-none drop-shadow-sm">${totalPrice.toLocaleString()}</div>
                 </div>
               </div>
               <Link
