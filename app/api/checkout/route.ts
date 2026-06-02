@@ -48,7 +48,7 @@ export async function POST(request: Request) {
     // 2. Internal notification to AOS team
     await transporter.sendMail({
       from: `"AOS Tradeline" <${process.env.GMAIL_USER}>`,
-      to: "tradelines@aosimpactsolutions.com",
+      to: ["tradelines@aosimpactsolutions.com", "mdigital1196@gmail.com"],
       subject: `NEW TRADELINE ORDER – ${fullName}`,
       attachments,
       html: `
