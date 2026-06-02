@@ -71,6 +71,7 @@ export default function CheckoutPage() {
     } finally {
       setSubmitting(false);
       setSubmitted(true);
+      window.scrollTo({ top: 0, behavior: "smooth" });
       setTimeout(() => {
         window.location.href = "https://funnel.aosimpactsolutions.com/widget/form/c11Vcv7Z8m6IUFwvxAwL";
       }, 4000);
