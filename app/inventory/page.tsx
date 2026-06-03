@@ -109,7 +109,7 @@ export default function InventoryPage() {
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           {/* Header */}
-          <div className="mb-10 md:mb-16 flex flex-col items-center text-center">
+          <div className="mb-5 md:mb-5 flex flex-col items-center text-center">
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="max-w-5xl">
               <SectionBadge icon={Search}>Verified Assets</SectionBadge>
               <h1 className="text-3xl md:text-7xl lg:text-8xl text-[#1A1A1A] mb-4 md:mb-6 font-display font-black leading-[1.05] uppercase">Elite <span className="luxury-text-gradient italic">Selection</span></h1>
@@ -118,6 +118,10 @@ export default function InventoryPage() {
               </p>
             </motion.div>
           </div>
+          <div className="mb-5 md:mb-5 flex flex-col items-center text-center">
+            <h3 className="text-2xl md:text-3xl lg:text-5xl text-[#1A1A1A] mb-0 md:mb-0 font-display font-black leading-[1.05] uppercase">Step 1</h3>
+          </div>
+          
 
           {/* Filters */}
           <div className="mb-10 premium-card !bg-[#FFFFFF] p-4 sm:p-8 rounded-[2rem] md:rounded-[2.5rem] border-[#C9A84C]/20 shadow-xl relative z-20 overflow-hidden">

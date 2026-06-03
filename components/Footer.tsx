@@ -48,7 +48,7 @@ export default function Footer() {
                 <ShieldCheck size={18} className="text-[#C9A84C]" />
                 <span className="uppercase text-[11px] font-black italic">Verified Partner</span>
               </li>
-              <li className="text-[#FFFFFF] font-black text-[12px]">Send email to tradelines@aostradelines.com</li>
+              <li className="text-[#FFFFFF] font-black text-[11px]">Send email to tradelines@aosimpactsolutions.com</li>
               <li className="pt-4">
                 <div className="flex text-[#C9A84C] gap-1">
                   {[...Array(5)].map((_, i) => <Star key={i} size={14} fill="currentColor" />)}

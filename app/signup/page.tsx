@@ -20,7 +20,7 @@ export default function SignUpPage() {
             <p className="text-sm md:text-lg text-[#4A4A4A] opacity-70 max-w-2xl mx-auto font-medium leading-relaxed px-4 hidden">
               Start improving your credit profile with our trusted tradeline services.
             </p>
-            <p className="text-sm md:text-lg text-[#4A4A4A] opacity-70 max-w-2xl mx-auto font-medium leading-relaxed px-4">
+            <p className="text-sm md:text-lg text-[#4A4A4A] opacity-70 max-w-2xl mx-auto font-medium leading-relaxed px-4 hidden">
              Step 1: Submit your information, Step 2: We match you with a tradeline, Step 3: Tradeline is added to your credit profile
             </p>
           </motion.div>
@@ -42,6 +42,10 @@ export default function SignUpPage() {
                 </div>
               </div>
             ))}
+          </div>
+
+          <div className="mb-5 md:mb-5 flex flex-col items-center text-center">
+            <h3 className="text-2xl md:text-3xl lg:text-5xl text-[#1A1A1A] mb-0 md:mb-0 font-display font-black leading-[1.05] uppercase">Step 3</h3>
           </div>
 
           <div className="premium-card !bg-[#FFFFFF] p-4 sm:p-8 md:p-12 rounded-[2.5rem] md:rounded-[3rem] border border-[#C9A84C]/20 text-center mb-8 md:mb-16">

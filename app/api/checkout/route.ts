@@ -18,8 +18,7 @@ export async function POST(request: Request) {
       ? [{ filename: proofFileName || "payment-proof.png", content: Buffer.from(proofFileBase64, "base64") }]
       : [];
 
-    // 1. Confirmation email to customer
-    await transporter.sendMail({
+    const customerEmail = transporter.sendMail({
       from: `"AOS Tradelines" <${process.env.GMAIL_USER}>`,
       to: email,
       subject: `Payment Confirmation – ${fullName}`,
@@ -45,23 +44,22 @@ export async function POST(request: Request) {
       `,
     });
 
-    // 2. Internal notification to AOS team
-    await transporter.sendMail({
-      from: `"AOS Tradeline" <${process.env.GMAIL_USER}>`,
+    const internalEmail = transporter.sendMail({
+      from: `"AOS Tradelines" <${process.env.GMAIL_USER}>`,
       to: ["tradelines@aosimpactsolutions.com", "mdigital1196@gmail.com"],
-      subject: `NEW TRADELINE ORDER – ${fullName}`,
+      subject: `New Tradelines Order – ${fullName}`,
       attachments,
       html: `
         <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; padding: 40px 20px;">
-          <h2 style="color: #1A1A1A; margin: 0 0 24px;"> ${fullName} just placed a trdeline order</h2>
+          <h2 style="color: #1A1A1A; margin: 0 0 24px;">${fullName} just placed a tradeline order</h2>
           <table style="width: 100%; border-collapse: collapse; font-size: 14px; table-layout: fixed;">
             <colgroup>
-              <col style="width: auto;" />
-              <col style="width: 160px;" />
+              <col style="width: 130px;" />
+              <col />
             </colgroup>
             <tr style="background: #FAF8F3;">
-              <td style="padding: 10px 14px; font-weight: bold; width: auto; border: 1px solid #eee;">Full Name</td>
-              <td style="padding: 10px 14px; border: 1px solid #eee width: 160px;">${fullName}</td>
+              <td style="padding: 10px 14px; font-weight: bold; border: 1px solid #eee;">Full Name</td>
+              <td style="padding: 10px 14px; border: 1px solid #eee;">${fullName}</td>
             </tr>
             <tr>
               <td style="padding: 10px 14px; font-weight: bold; border: 1px solid #eee;">Email</td>
@@ -85,11 +83,21 @@ export async function POST(request: Request) {
             </tr>
           </table>
           ${proofFileBase64
-          ? `<p style="margin-top: 16px; font-size: 13px; color: #4A4A4A;">Payment proof attached as <strong>${proofFileName}</strong>.</p>`
-          : `<p style="margin-top: 16px; font-size: 13px; color: #999;">No payment proof uploaded.</p>`
-        }
+            ? `<p style="margin-top: 16px; font-size: 13px; color: #4A4A4A;">Payment proof attached as <strong>${proofFileName}</strong>.</p>`
+            : `<p style="margin-top: 16px; font-size: 13px; color: #999;">No payment proof uploaded.</p>`
+          }
         </div>
       `,
+    });
+
+    // Send both emails in parallel
+    const results = await Promise.allSettled([customerEmail, internalEmail]);
+
+    // Log any failures without blocking the response
+    results.forEach((result, i) => {
+      if (result.status === "rejected") {
+        console.error(`Email ${i === 0 ? "customer" : "internal"} failed:`, result.reason);
+      }
     });
 
     return NextResponse.json({ success: true });
