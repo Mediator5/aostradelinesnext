@@ -119,7 +119,7 @@ export default function InventoryPage() {
             </motion.div>
           </div>
           <div className="mb-5 md:mb-5 flex flex-col items-center text-center">
-            <h3 className="text-2xl md:text-3xl lg:text-5xl text-[#1A1A1A] mb-0 md:mb-0 font-display font-black leading-[1.05] uppercase">Step 1</h3>
+            <h3 className="text-2xl md:text-3xl lg:text-5xl text-[#1A1A1A] mb-0 md:mb-0 font-display font-black leading-[1.05] uppercase">Step 1: Choose Your Tradeline</h3>
           </div>
           
 

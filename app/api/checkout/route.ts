@@ -10,6 +10,12 @@ const transporter = nodemailer.createTransport({
 });
 
 export async function POST(request: Request) {
+  // Verify env vars are present
+  if (!process.env.GMAIL_USER || !process.env.GMAIL_APP_PASSWORD) {
+    console.error("Missing GMAIL_USER or GMAIL_APP_PASSWORD env vars");
+    return NextResponse.json({ error: "Email not configured" }, { status: 500 });
+  }
+
   try {
     const body = await request.json();
     const { fullName, email, phone, paymentMethod, referredBy, orderDetails, proofFileName, proofFileBase64 } = body;
