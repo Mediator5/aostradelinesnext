@@ -1,31 +1,23 @@
 import { NextResponse } from "next/server";
-import nodemailer from "nodemailer";
+import { Resend } from "resend";
 
-const transporter = nodemailer.createTransport({
-  service: "gmail",
-  auth: {
-    user: process.env.GMAIL_USER,
-    pass: process.env.GMAIL_APP_PASSWORD,
-  },
-});
+if (!process.env.RESEND_API_KEY) {
+  console.error("Missing RESEND_API_KEY env var");
+}
+
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function POST(request: Request) {
-  // Verify env vars are present
-  if (!process.env.GMAIL_USER || !process.env.GMAIL_APP_PASSWORD) {
-    console.error("Missing GMAIL_USER or GMAIL_APP_PASSWORD env vars");
-    return NextResponse.json({ error: "Email not configured" }, { status: 500 });
-  }
-
   try {
     const body = await request.json();
     const { fullName, email, phone, paymentMethod, referredBy, orderDetails, proofFileName, proofFileBase64 } = body;
 
     const attachments = proofFileBase64
-      ? [{ filename: proofFileName || "payment-proof.png", content: Buffer.from(proofFileBase64, "base64") }]
+      ? [{ filename: proofFileName || "payment-proof.png", content: proofFileBase64 }]
       : [];
 
-    const customerEmail = transporter.sendMail({
-      from: `"AOS Tradelines" <${process.env.GMAIL_USER}>`,
+    const customerEmail = resend.emails.send({
+      from: "AOS Tradelines <noreply@aostradelines.com>",
       to: email,
       subject: `Payment Confirmation – ${fullName}`,
       html: `
@@ -50,8 +42,8 @@ export async function POST(request: Request) {
       `,
     });
 
-    const internalEmail = transporter.sendMail({
-      from: `"AOS Tradelines" <${process.env.GMAIL_USER}>`,
+    const internalEmail = resend.emails.send({
+      from: "AOS Tradelines <noreply@aostradelines.com>",
       to: ["tradelines@aosimpactsolutions.com", "mdigital1196@gmail.com"],
       subject: `New Tradelines Order – ${fullName}`,
       attachments,
@@ -96,13 +88,13 @@ export async function POST(request: Request) {
       `,
     });
 
-    // Send both emails in parallel
+    // Send both in parallel
     const results = await Promise.allSettled([customerEmail, internalEmail]);
-
-    // Log any failures without blocking the response
     results.forEach((result, i) => {
       if (result.status === "rejected") {
         console.error(`Email ${i === 0 ? "customer" : "internal"} failed:`, result.reason);
+      } else {
+        console.log(`Email ${i === 0 ? "customer" : "internal"} sent:`, result.value);
       }
     });
 
