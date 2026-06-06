@@ -57,19 +57,33 @@ export default function CheckoutPage() {
     let proofFileBase64 = null;
     let proofFileName = null;
     if (proofFile) {
-      const buffer = await proofFile.arrayBuffer();
-      proofFileBase64 = btoa(String.fromCharCode(...new Uint8Array(buffer)));
-      proofFileName = proofFile.name;
+      // Compress images before encoding to stay under Vercel's 4.5MB limit
+      if (proofFile.type.startsWith("image/")) {
+        const bitmap = await createImageBitmap(proofFile);
+        const canvas = document.createElement("canvas");
+        const scale = Math.min(1, 1200 / Math.max(bitmap.width, bitmap.height));
+        canvas.width = bitmap.width * scale;
+        canvas.height = bitmap.height * scale;
+        canvas.getContext("2d")!.drawImage(bitmap, 0, 0, canvas.width, canvas.height);
+        proofFileBase64 = canvas.toDataURL("image/jpeg", 0.7).split(",")[1];
+        proofFileName = proofFile.name.replace(/\.[^.]+$/, ".jpg");
+      } else {
+        const buffer = await proofFile.arrayBuffer();
+        proofFileBase64 = btoa(String.fromCharCode(...new Uint8Array(buffer)));
+        proofFileName = proofFile.name;
+      }
     }
 
-    fetch("/api/checkout", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ ...form, orderDetails, proofFileBase64, proofFileName }),
-      keepalive: true,
-    }).catch(console.error);
+    try {
+      await fetch("/api/checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...form, orderDetails, proofFileBase64, proofFileName }),
+      });
+    } catch (err) {
+      console.error("Email send failed:", err);
+    }
 
-    // Redirect immediately
     window.location.href = "https://funnel.aosimpactsolutions.com/widget/form/c11Vcv7Z8m6IUFwvxAwL";
   };
 
