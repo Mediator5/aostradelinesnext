@@ -53,23 +53,21 @@ export default function CheckoutPage() {
     e.preventDefault();
     setSubmitting(true);
 
-    // Fire emails in background — don't await
+    // Prepare payload then fire with keepalive so browser doesn't cancel on redirect
+    let proofFileBase64 = null;
+    let proofFileName = null;
     if (proofFile) {
-      proofFile.arrayBuffer().then(buffer => {
-        const proofFileBase64 = btoa(String.fromCharCode(...new Uint8Array(buffer)));
-        fetch("/api/checkout", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ ...form, orderDetails, proofFileBase64, proofFileName: proofFile.name }),
-        }).catch(console.error);
-      });
-    } else {
-      fetch("/api/checkout", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...form, orderDetails, proofFileBase64: null, proofFileName: null }),
-      }).catch(console.error);
+      const buffer = await proofFile.arrayBuffer();
+      proofFileBase64 = btoa(String.fromCharCode(...new Uint8Array(buffer)));
+      proofFileName = proofFile.name;
     }
+
+    fetch("/api/checkout", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ ...form, orderDetails, proofFileBase64, proofFileName }),
+      keepalive: true,
+    }).catch(console.error);
 
     // Redirect immediately
     window.location.href = "https://funnel.aosimpactsolutions.com/widget/form/c11Vcv7Z8m6IUFwvxAwL";
