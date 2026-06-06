@@ -17,7 +17,7 @@ export async function POST(request: Request) {
       : [];
 
     const customerEmail = resend.emails.send({
-      from: "AOS Tradelines <onboarding@resend.dev>",
+      from: "AOS Tradelines <noreply@aostradelines.com>",
       to: email,
       subject: `Payment Confirmation – ${fullName}`,
       html: `
@@ -43,7 +43,7 @@ export async function POST(request: Request) {
     });
 
     const internalEmail = resend.emails.send({
-      from: "AOS Tradelines <onboarding@resend.dev>",
+      from: "AOS Tradelines <noreply@aostradelines.com>",
       to: ["tradelines@aosimpactsolutions.com", "mdigital1196@gmail.com"],
       subject: `New Tradelines Order – ${fullName}`,
       attachments,
