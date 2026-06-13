@@ -6,9 +6,12 @@ import StickyCheckoutBar from '@/components/StickyCheckoutBar';
 import FloatingActions from '@/components/FloatingActions';
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://aostradelines.com'),
+  metadataBase: new URL('https://www.aostradelines.com'),
   title: 'AOS Tradelines',
   description: 'Premium tradeline services — high-limit, aged tradelines to elevate your credit profile.',
+  alternates: {
+    canonical: 'https://www.aostradelines.com',
+  },
   openGraph: {
     title: 'AOS Tradelines',
     description: 'Premium tradeline services — high-limit, aged tradelines to elevate your credit profile.',
