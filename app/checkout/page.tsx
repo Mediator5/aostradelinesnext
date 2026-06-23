@@ -495,7 +495,7 @@ export default function CheckoutPage() {
                 Your payment and personal information are secure
               </div>
               <div className="p-5 bg-red-500/5 border border-red-500/10 rounded-2xl text-center">
-                <p className="text-red-500/70 font-black uppercase text-[11px] tracking-wider">All sales are final. No refunds.</p>
+                <p className="text-red-500/70 font-black uppercase text-[11px] tracking-wider">ALL SALES ARE FINAL. NO REFUNDS. IF TRADELINE DOES NOT POST TO A MINIMUM OF TWO BUREAUS WE WILL REPLACE IT WITH ONE OF EQUAL VALUE.</p>
               </div>
             </motion.div>
 
