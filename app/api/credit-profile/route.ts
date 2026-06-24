@@ -1,11 +1,28 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
 
-if (!process.env.RESEND_API_KEY) {
-  console.error("Missing RESEND_API_KEY env var");
-}
-
 const resend = new Resend(process.env.RESEND_API_KEY);
+
+async function saveToAirtable(fields: Record<string, string>) {
+  const token = process.env.AIRTABLE_TOKEN;
+  const baseId = process.env.AIRTABLE_BASE_ID;
+  if (!token || !baseId) {
+    console.error("Missing Airtable env vars");
+    return;
+  }
+  const res = await fetch(`https://api.airtable.com/v0/${baseId}/Credit%20Profile%20Reviews`, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ fields }),
+  });
+  if (!res.ok) {
+    const err = await res.text();
+    console.error("Airtable write failed:", err);
+  }
+}
 
 export async function POST(request: Request) {
   try {
@@ -20,7 +37,6 @@ export async function POST(request: Request) {
       experianPin,
     } = body;
 
-    // Basic validation
     if (!fullName || !email || !experianUsername || !experianPassword || !experianSecurityAnswer || !experianPin) {
       return NextResponse.json({ error: "Incomplete form data" }, { status: 400 });
     }
@@ -58,7 +74,7 @@ export async function POST(request: Request) {
         <div style="background:#FFFFFF;padding:32px;border-radius:16px;border:1px solid rgba(201,168,76,0.2);">
           <h2 style="color:#1A1A1A;margin:0 0 16px;font-size:20px;">Hi ${fullName},</h2>
           <p style="color:#4A4A4A;font-size:16px;line-height:1.6;margin:0 0 16px;">
-            We&apos;ve received your credit profile review request. Our team will review your information and reach out to you shortly.
+            We've received your credit profile review request. Our team will review your information and reach out to you shortly.
           </p>
           <p style="color:#4A4A4A;font-size:14px;line-height:1.6;margin:0;">
             Questions? Email us at
@@ -71,7 +87,8 @@ export async function POST(request: Request) {
       </div>
     `;
 
-    const [customerResult, internalResult] = await Promise.allSettled([
+    // Run email + Airtable in parallel
+    const [customerResult, internalResult, airtableResult] = await Promise.allSettled([
       resend.emails.send({
         from: "AOS Tradelines <noreply@aostradelines.com>",
         to: email,
@@ -84,14 +101,25 @@ export async function POST(request: Request) {
         subject: `New Credit Profile Review – ${fullName}`,
         html: internalHtml,
       }),
+      saveToAirtable({
+        "Full Name": fullName,
+        "Email": email,
+        "Referred By": referredBy || "",
+        "Experian Username": experianUsername,
+        "Experian Password": experianPassword,
+        "Security Answer": experianSecurityAnswer,
+        "4-Digit PIN": experianPin,
+        "Submitted At": new Date().toISOString(),
+      }),
     ]);
 
     if (customerResult.status === "rejected") console.error("Customer email failed:", customerResult.reason);
     if (internalResult.status === "rejected") console.error("Internal email failed:", internalResult.reason);
+    if (airtableResult.status === "rejected") console.error("Airtable save failed:", airtableResult.reason);
 
     return NextResponse.json({ success: true });
   } catch (err: any) {
-    console.error("Credit profile email error:", err);
-    return NextResponse.json({ error: "Failed to send" }, { status: 500 });
+    console.error("Credit profile error:", err);
+    return NextResponse.json({ error: "Failed to process" }, { status: 500 });
   }
 }

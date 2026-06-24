@@ -1,11 +1,28 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
 
-if (!process.env.RESEND_API_KEY) {
-  console.error("Missing RESEND_API_KEY env var");
-}
-
 const resend = new Resend(process.env.RESEND_API_KEY);
+
+async function saveToAirtable(fields: Record<string, string>) {
+  const token = process.env.AIRTABLE_TOKEN;
+  const baseId = process.env.AIRTABLE_BASE_ID;
+  if (!token || !baseId) {
+    console.error("Missing Airtable env vars");
+    return;
+  }
+  const res = await fetch(`https://api.airtable.com/v0/${baseId}/Checkout%20Orders`, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ fields }),
+  });
+  if (!res.ok) {
+    const err = await res.text();
+    console.error("Airtable write failed:", err);
+  }
+}
 
 export async function POST(request: Request) {
   try {
@@ -51,10 +68,7 @@ export async function POST(request: Request) {
         <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; padding: 40px 20px;">
           <h2 style="color: #1A1A1A; margin: 0 0 24px;">${fullName} just placed a tradeline order</h2>
           <table style="width: 100%; border-collapse: collapse; font-size: 14px; table-layout: fixed;">
-            <colgroup>
-              <col style="width: 130px;" />
-              <col />
-            </colgroup>
+            <colgroup><col style="width: 130px;" /><col /></colgroup>
             <tr style="background: #FAF8F3;">
               <td style="padding: 10px 14px; font-weight: bold; border: 1px solid #eee;">Full Name</td>
               <td style="padding: 10px 14px; border: 1px solid #eee;">${fullName}</td>
@@ -88,19 +102,31 @@ export async function POST(request: Request) {
       `,
     });
 
-    // Send both in parallel
-    const results = await Promise.allSettled([customerEmail, internalEmail]);
+    const results = await Promise.allSettled([
+      customerEmail,
+      internalEmail,
+      saveToAirtable({
+        "Full Name": fullName || "",
+        "Email": email || "",
+        "Phone": phone || "",
+        "Payment Method": paymentMethod || "",
+        "Referred By": referredBy || "",
+        "Order Details": orderDetails || "",
+        "Proof File": proofFileName || "No file uploaded",
+        "Submitted At": new Date().toISOString(),
+      }),
+    ]);
+
     results.forEach((result, i) => {
       if (result.status === "rejected") {
-        console.error(`Email ${i === 0 ? "customer" : "internal"} failed:`, result.reason);
-      } else {
-        console.log(`Email ${i === 0 ? "customer" : "internal"} sent:`, result.value);
+        const label = i === 0 ? "customer email" : i === 1 ? "internal email" : "airtable";
+        console.error(`${label} failed:`, result.reason);
       }
     });
 
     return NextResponse.json({ success: true });
   } catch (err: any) {
-    console.error("Checkout email error:", err);
+    console.error("Checkout error:", err);
     return NextResponse.json({ error: "Failed to send" }, { status: 500 });
   }
 }

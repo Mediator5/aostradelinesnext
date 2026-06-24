@@ -79,7 +79,7 @@ export default function CreditProfileModal({ isOpen, onClose }: Props) {
           />
 
           {/* Centering wrapper — min-h-full keeps content centred but lets it scroll */}
-          <div className="relative z-10 flex min-h-full items-center justify-center p-4 py-10">
+          <div className="relative z-10 flex min-h-full items-center justify-center p-4 pt-28 pb-10">
             <motion.div
               initial={{ opacity: 0, y: 40, scale: 0.97 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -98,6 +98,18 @@ export default function CreditProfileModal({ isOpen, onClose }: Props) {
                 </h2>
                 <p className="text-[#A8A8A8] text-[13px] font-medium leading-relaxed hidden lg:block">
                   Provide your details and we&apos;ll review your profile before processing your order.
+                </p>
+                <p className="text-[#A8A8A8] text-[12px] font-medium leading-relaxed hidden lg:block">
+                  Click the link to create an account with{" "}
+                  <a
+                    href="https://www.experian.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[#C9A84C] underline hover:opacity-80 transition-opacity"
+                  >
+                    Experian.com
+                  </a>
+                  . Please be sure to add a security answer &amp; 4 digit PIN under the settings tab.
                 </p>
               </div>
 
