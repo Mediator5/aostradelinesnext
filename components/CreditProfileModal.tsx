@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, User, Mail, Users, Eye, EyeOff, Lock, ShieldCheck, AlertTriangle, ArrowRight } from "lucide-react";
+import { X, User, Mail, Users, Phone, Eye, EyeOff, Lock, ShieldCheck, AlertTriangle, ArrowRight } from "lucide-react";
 
 interface Props {
   isOpen: boolean;
@@ -21,6 +21,7 @@ export default function CreditProfileModal({ isOpen, onClose }: Props) {
   const [form, setForm] = useState({
     fullName: "",
     email: "",
+    phone: "",
     referredBy: "",
     experianUsername: "",
     experianPassword: "",
@@ -157,7 +158,7 @@ export default function CreditProfileModal({ isOpen, onClose }: Props) {
                       </div>
                     </div>
 
-                    {/* Email + Referred By — side by side on sm+ */}
+                    {/* Email + Phone + Referred By */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div className="space-y-2">
                         <label className="text-[13px] font-black text-[#FFFFFF] uppercase tracking-widest ml-1">
@@ -177,6 +178,23 @@ export default function CreditProfileModal({ isOpen, onClose }: Props) {
                       </div>
 
                       <div className="space-y-2">
+                        <label className="text-[13px] font-black text-[#FFFFFF] uppercase tracking-widest ml-1">
+                          Phone <span className="text-[#C9A84C]">*</span>
+                        </label>
+                        <div className="relative">
+                          <Phone size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-[#C9A84C]/50" />
+                          <input
+                            type="tel"
+                            placeholder="(555) 000-0000"
+                            value={form.phone}
+                            onChange={set("phone")}
+                            required
+                            className={`${INPUT_BASE} pl-11`}
+                          />
+                        </div>
+                      </div>
+
+                      <div className="space-y-2 sm:col-span-2">
                         <label className="text-[13px] font-black text-[#FFFFFF] uppercase tracking-widest ml-1">
                           Who Referred You? <span className="text-[#C9A84C]">*</span>
                         </label>

