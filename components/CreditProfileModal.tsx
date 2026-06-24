@@ -88,7 +88,7 @@ export default function CreditProfileModal({ isOpen, onClose }: Props) {
               className="flex flex-col lg:flex-row items-start gap-8 lg:gap-14 w-full max-w-4xl"
             >
               {/* Outside label */}
-              <div className="flex flex-col gap-3 lg:max-w-[200px] shrink-0 px-2 lg:px-0 lg:pt-4">
+              <div className="flex flex-col gap-3 lg:max-w-[200px] shrink-0 px-2 lg:px-0 lg:pt-4 text-center lg:text-left items-center lg:items-start">
                 <span className="text-[#C9A84C] text-[11px] font-black uppercase tracking-[0.2em]">
                   Get in touch
                 </span>
@@ -96,10 +96,10 @@ export default function CreditProfileModal({ isOpen, onClose }: Props) {
                   Review my<br />
                   <span className="text-[#C9A84C]">Credit Profile.</span>
                 </h2>
-                <p className="text-[#A8A8A8] text-[13px] font-medium leading-relaxed hidden lg:block">
+                <p className="text-[#A8A8A8] text-[13px] font-medium leading-relaxed">
                   Provide your details and we&apos;ll review your profile before processing your order.
                 </p>
-                <p className="text-[#A8A8A8] text-[12px] font-medium leading-relaxed hidden lg:block">
+                <p className="text-[#A8A8A8] text-[12px] font-medium leading-relaxed">
                   Click the link to create an account with{" "}
                   <a
                     href="https://www.experian.com"
@@ -134,14 +134,14 @@ export default function CreditProfileModal({ isOpen, onClose }: Props) {
                       <div className="w-7 h-7 rounded-xl bg-[#C9A84C] flex items-center justify-center text-[#0A0A0A]">
                         <User size={14} strokeWidth={3} />
                       </div>
-                      <h3 className="text-[#FFFFFF] font-black uppercase text-[12px] tracking-[0.15em]">
+                      <h3 className="text-[#FFFFFF] font-black uppercase text-[15px] tracking-[0.12em]">
                         Contact Information
                       </h3>
                     </div>
 
                     {/* Full Name — full width */}
                     <div className="space-y-2">
-                      <label className="text-[10px] font-black text-[#A8A8A8] uppercase tracking-widest ml-1">
+                      <label className="text-[13px] font-black text-[#FFFFFF] uppercase tracking-widest ml-1">
                         Full Name <span className="text-[#C9A84C]">*</span>
                       </label>
                       <div className="relative">
@@ -160,7 +160,7 @@ export default function CreditProfileModal({ isOpen, onClose }: Props) {
                     {/* Email + Referred By — side by side on sm+ */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div className="space-y-2">
-                        <label className="text-[10px] font-black text-[#A8A8A8] uppercase tracking-widest ml-1">
+                        <label className="text-[13px] font-black text-[#FFFFFF] uppercase tracking-widest ml-1">
                           Email <span className="text-[#C9A84C]">*</span>
                         </label>
                         <div className="relative">
@@ -177,7 +177,7 @@ export default function CreditProfileModal({ isOpen, onClose }: Props) {
                       </div>
 
                       <div className="space-y-2">
-                        <label className="text-[10px] font-black text-[#A8A8A8] uppercase tracking-widest ml-1">
+                        <label className="text-[13px] font-black text-[#FFFFFF] uppercase tracking-widest ml-1">
                           Who Referred You? <span className="text-[#C9A84C]">*</span>
                         </label>
                         <div className="relative">
@@ -208,14 +208,14 @@ export default function CreditProfileModal({ isOpen, onClose }: Props) {
                       <div className="w-7 h-7 rounded-xl bg-[#C9A84C] flex items-center justify-center text-[#0A0A0A]">
                         <ShieldCheck size={14} strokeWidth={3} />
                       </div>
-                      <h3 className="text-[#FFFFFF] font-black uppercase text-[12px] tracking-[0.15em]">
+                      <h3 className="text-[#FFFFFF] font-black uppercase text-[15px] tracking-[0.12em]">
                         Experian Information
                       </h3>
                     </div>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div className="space-y-2">
-                        <label className="text-[10px] font-black text-[#A8A8A8] uppercase tracking-widest ml-1">
+                        <label className="text-[13px] font-black text-[#FFFFFF] uppercase tracking-widest ml-1">
                           Experian Username <span className="text-[#C9A84C]">*</span>
                         </label>
                         <div className="relative">
@@ -232,7 +232,7 @@ export default function CreditProfileModal({ isOpen, onClose }: Props) {
                       </div>
 
                       <div className="space-y-2">
-                        <label className="text-[10px] font-black text-[#A8A8A8] uppercase tracking-widest ml-1">
+                        <label className="text-[13px] font-black text-[#FFFFFF] uppercase tracking-widest ml-1">
                           Experian Password <span className="text-[#C9A84C]">*</span>
                         </label>
                         <div className="relative">
@@ -256,7 +256,7 @@ export default function CreditProfileModal({ isOpen, onClose }: Props) {
                       </div>
 
                       <div className="space-y-2">
-                        <label className="text-[10px] font-black text-[#A8A8A8] uppercase tracking-widest ml-1">
+                        <label className="text-[13px] font-black text-[#FFFFFF] uppercase tracking-widest ml-1">
                           Security Answer <span className="text-[#C9A84C]">*</span>
                         </label>
                         <div className="relative">
@@ -273,7 +273,7 @@ export default function CreditProfileModal({ isOpen, onClose }: Props) {
                       </div>
 
                       <div className="space-y-2">
-                        <label className="text-[10px] font-black text-[#A8A8A8] uppercase tracking-widest ml-1">
+                        <label className="text-[13px] font-black text-[#FFFFFF] uppercase tracking-widest ml-1">
                           4-Digit PIN <span className="text-[#C9A84C]">*</span>
                         </label>
                         <div className="relative">
