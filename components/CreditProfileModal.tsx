@@ -96,10 +96,10 @@ export default function CreditProfileModal({ isOpen, onClose }: Props) {
                   Review my<br />
                   <span className="text-[#C9A84C]">Credit Profile.</span>
                 </h2>
-                <p className="text-[#A8A8A8] text-[13px] font-medium leading-relaxed">
+                <p className="text-[#FFFFFF] text-[13px] font-black leading-relaxed">
                   Provide your details and we&apos;ll review your profile before processing your order.
                 </p>
-                <p className="text-[#A8A8A8] text-[12px] font-medium leading-relaxed">
+                <p className="text-[#FFFFFF] text-[13px] font-black leading-relaxed">
                   Click the link to create an account with{" "}
                   <a
                     href="https://www.experian.com"
