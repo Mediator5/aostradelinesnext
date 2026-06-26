@@ -14,7 +14,7 @@ import Link from "next/link";
 
 const PAYMENT_OPTIONS = [
   { label: "Zelle", value: "(954) 552-0026", note: "AOS Impact Solutions", icon: "Z" },
-  { label: "Apple Pay", value: "(954) 552-0026", note: null, icon: "A" },
+  { label: "Apple Pay", value: "(954) 830-2044", note: null, icon: "A" },
   { label: "Cash App", value: "$AOS700Boost", note: null, icon: "$" },
   { label: "Venmo", value: "@asampson5", note: null, icon: "V" },
 ];
