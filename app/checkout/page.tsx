@@ -111,7 +111,7 @@ export default function CheckoutPage() {
           </motion.div>
 
           <div className="mb-5 md:mb-5 flex flex-col items-center text-center">
-            <h3 className="text-2xl md:text-3xl lg:text-5xl text-[#1A1A1A] mb-0 md:mb-0 font-display font-black leading-[1.05] uppercase">STEP 2: SUBMIT YOUR PAYMENT</h3>
+            <h3 className="text-3xl md:text-5xl lg:text-7xl text-[#1A1A1A] mb-0 md:mb-0 font-display font-black leading-[1.05] uppercase">STEP 2: SUBMIT YOUR PAYMENT</h3>
           </div>
 
           <div className="grid gap-5">

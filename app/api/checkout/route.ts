@@ -61,7 +61,7 @@ export async function POST(request: Request) {
 
     const internalEmail = resend.emails.send({
       from: "AOS Tradelines <noreply@aostradelines.com>",
-      to: ["tradelines@aosimpactsolutions.com", "mdigital1196@gmail.com"],
+      to: ["tradelines@aosimpactsolutions.com"],
       subject: `New Tradelines Order – ${fullName}`,
       attachments,
       html: `
